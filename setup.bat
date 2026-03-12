@@ -16,7 +16,7 @@ if %errorlevel% neq 0 (
 )
 
 :: Clear broken electron-builder cache (fixes symlink errors on Windows)
-echo [0/4] Clearing electron-builder cache...
+echo [0/5] Clearing electron-builder cache...
 set "CACHE_DIR=%LOCALAPPDATA%\electron-builder\Cache\winCodeSign"
 if exist "%CACHE_DIR%" (
   rmdir /s /q "%CACHE_DIR%" 2>nul
@@ -25,25 +25,38 @@ if exist "%CACHE_DIR%" (
   echo       Nothing to clear.
 )
 
+:: Clean old build output so changes always apply fresh
 echo.
-echo [1/4] Installing dependencies...
+echo [1/5] Cleaning old build...
+if exist "dist" (
+  rmdir /s /q "dist"
+  echo       dist\ cleared.
+)
+if exist "dist-electron" (
+  rmdir /s /q "dist-electron"
+  echo       dist-electron\ cleared.
+)
+
+echo.
+echo [2/5] Installing dependencies...
 call npm install
 if %errorlevel% neq 0 ( echo [ERROR] npm install failed & pause & exit /b 1 )
 
 echo.
-echo [2/4] Building the React app...
+echo [3/5] Building the React app...
 call npm run build
-if %errorlevel% neq 0 ( echo [ERROR] Build failed & pause & exit /b 1 )
+if %errorlevel% neq 0 ( echo [ERROR] React build failed & pause & exit /b 1 )
 
 echo.
-echo [3/4] Building desktop app...
-call npm run electron:build
+echo [4/5] Building desktop app (.exe)...
+call npx electron-builder --win portable
 if %errorlevel% neq 0 ( echo [ERROR] Electron build failed & pause & exit /b 1 )
 
 echo.
-echo [4/4] Done!
+echo [5/5] Done!
 echo.
-echo  Your app is in: dist-electron\win-unpacked\DayStack.exe
+echo  Your app is in: dist-electron\
+echo  File to share: DayStack.exe
 echo.
 echo  TO ADD TO STARTUP:
 echo    1. Press Win+R, type shell:startup, press Enter

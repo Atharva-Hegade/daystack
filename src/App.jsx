@@ -243,7 +243,13 @@ export default function App() {
                 <div>
                   <div style={{fontSize:11,fontWeight:600,color:"#475569"}}>Launch on startup</div>
                   <div style={{fontSize:9,color:"#334155",marginTop:1}}>Auto-open on PC boot</div>
+                  <div style={{marginTop:10, paddingTop:10, borderTop:"1px solid #1a1a28", textAlign:"center"}}>
+                    <span style={{fontSize:10, fontWeight:700, color:"#6366f1", letterSpacing:1, fontFamily:"'DM Mono',monospace"}}>
+                    @TECHBLENDSTUDIOS ♥
+                    </span>
                 </div>
+                </div>
+                
                 <div onClick={toggleAutoLaunch} style={{width:36,height:20,borderRadius:10,background:autoLaunch?"#6366f1":"#1e1e30",cursor:"pointer",position:"relative",transition:"background 0.2s",border:`1px solid ${autoLaunch?"#8b5cf6":"#2d2d45"}`}}>
                   <div style={{width:14,height:14,borderRadius:"50%",background:"#fff",position:"absolute",top:2,left:autoLaunch?19:2,transition:"left 0.2s"}}/>
                 </div>
