@@ -1,75 +1,76 @@
-# ⚡ DayStack — Desktop App Setup Guide
+<div align="center">
 
-A smart daily task manager that runs as a native Windows desktop app.
+<img src="public/icon.png" alt="DayStack Logo" width="80" height="80" />
 
----
+# ⚡ DayStack
 
-## 🚀 Quick Start (3 steps)
+**A smart, minimal daily task manager — built as a native Windows desktop app.**
 
-### Step 1 — Prerequisites
-Make sure you have Node.js installed:
-```
-winget install OpenJS.NodeJS.LTS
-```
-Then restart your terminal.
+[![Release](https://img.shields.io/github/v/release/Atharva-Hegade/daystack?color=6366f1&label=Download&style=for-the-badge)](https://github.com/Atharva-Hegade/daystack/releases/latest)
+![Platform](https://img.shields.io/badge/Platform-Windows%2011-blue?style=for-the-badge&logo=windows)
+![Electron](https://img.shields.io/badge/Electron-32-47848F?style=for-the-badge&logo=electron)
+![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react)
 
-### Step 2 — Install & Build
-Open a terminal in this folder, then run:
-```
-setup.bat
-```
-This will:
-- Install all dependencies
-- Build the React frontend
-- Package it as a Windows .exe
+[**⬇️ Download Latest**](https://github.com/Atharva-Hegade/daystack/releases/latest) · [**🐛 Report a Bug**](https://github.com/Atharva-Hegade/daystack/issues) · [**💡 Request Feature**](https://github.com/Atharva-Hegade/daystack/issues)
 
-Your app lands in: `dist-electron\DayStack.exe`
-
-### Step 3 — Run It
-Double-click `dist-electron\DayStack.exe`
+</div>
 
 ---
 
-## 🖥️ Run Without Building (Dev Mode)
-If you just want to test it quickly without building an .exe:
-```
-run-dev.bat
-```
-This runs Vite + Electron together in development mode.
+## ✨ What is DayStack?
+
+DayStack is a lightweight desktop task manager designed for developers and power users who want a **fast, distraction-free** way to plan their day — right on their Windows desktop, no browser needed.
+
+It launches silently on boot, lives in your system tray, and is always one click away.
 
 ---
 
-## 🔁 Auto-Start on Windows Boot
+## 🎯 Features
 
-### Option A — Use the in-app toggle (Easiest)
-The sidebar has a **"Launch on startup"** toggle.
-Flip it ON — done. DayStack will silently start with Windows.
-
-### Option B — Manual shortcut
-1. Press `Win + R` → type `shell:startup` → press Enter
-2. Copy a shortcut to `DayStack.exe` into that folder
-3. Reboot to test
-
-### Option C — PowerShell (one-liner)
-```powershell
-$exe = "C:\Path\To\dist-electron\DayStack.exe"
-$startup = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup"
-$s = (New-Object -COM WScript.Shell).CreateShortcut("$startup\DayStack.lnk")
-$s.TargetPath = $exe; $s.Save()
-```
+| Feature | Description |
+|---|---|
+| 📅 **Week View** | See and plan your entire week at a glance |
+| ✅ **Smart Tasks** | Add priority, time, category and notes to every task |
+| 🔴 **Priority System** | High / Medium / Low with color coding |
+| 🔍 **Search & Filter** | Find any task instantly |
+| 🚀 **Launch on Boot** | Toggle auto-start from inside the app |
+| 🖥️ **Native Window** | Custom frameless titlebar, no browser chrome |
+| 📌 **System Tray** | Hides to tray, always running in background |
+| 💾 **Local Storage** | Data saved on your PC — no cloud, no account |
 
 ---
 
-## 📁 Where Your Data Lives
-Tasks are saved locally at:
-```
-%APPDATA%\DayStack\tasks.json
-```
-You can back this file up or sync it with OneDrive.
+## ⬇️ Installation
+
+> **No Node.js required — just download and run.**
+
+1. Go to [**Releases**](https://github.com/Atharva-Hegade/daystack/releases/latest)
+2. Download `DayStack.exe`
+3. Double-click it — that's it ✅
 
 ---
 
-## 🏗️ Project Structure
+## 🛠️ Build From Source
+
+Want to run or modify the code yourself?
+
+**Prerequisites:** Node.js 18+
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/Atharva-Hegade/daystack.git
+cd daystack
+
+# 2. Run in dev mode (live reload)
+npm install
+npm run electron:dev
+
+# 3. Build a fresh .exe
+.\setup.bat
+```
+
+### Project Structure
+
 ```
 daystack/
 ├── electron/
@@ -78,45 +79,85 @@ daystack/
 ├── src/
 │   ├── main.jsx       ← React entry point
 │   └── App.jsx        ← Full DayStack UI
-├── public/            ← Static assets (put icon.png here)
+├── public/            ← App icon (icon.png + icon.ico)
 ├── index.html
 ├── vite.config.js
 ├── package.json
-├── setup.bat          ← Build script
+├── setup.bat          ← One-click build script
 └── run-dev.bat        ← Dev mode launcher
 ```
 
 ---
 
-## 🎨 Customizing the Icon
-1. Create a 256×256 PNG named `icon.png`
-2. Place it in the `public/` folder
-3. For the taskbar .ico format, use: https://icoconvert.com
-4. Save the .ico as `public/icon.ico`
-5. Rebuild with `setup.bat`
+## 🔁 Auto-Start on Windows Boot
+
+**Option A — Easiest (recommended)**
+The sidebar has a built-in **"Launch on startup"** toggle — flip it ON and you're done.
+
+**Option B — Manual shortcut**
+1. Press `Win + R` → type `shell:startup` → Enter
+2. Drop a shortcut to `DayStack.exe` in that folder
 
 ---
 
-## ⌨️ Keyboard Shortcuts (in-app)
+## 📁 Your Data
+
+Tasks are saved locally — never uploaded anywhere:
+```
+%APPDATA%\DayStack\tasks.json
+```
+Back it up or sync it with OneDrive anytime.
+
+---
+
+## ⌨️ Shortcuts
+
 | Key | Action |
 |-----|--------|
-| `Enter` (in form) | Save task |
-| `Esc` (modal open) | Close modal |
-| Click tray icon | Hide/show window |
-| Double-click tray | Show window |
+| `Enter` in task form | Save task |
+| Double-click tray icon | Show window |
+| Startup toggle in sidebar | Enable/disable boot launch |
 
 ---
 
 ## 🧪 Troubleshooting
 
-**"electron is not recognized"**
-→ Run `npm install` first
+<details>
+<summary><b>White screen on launch</b></summary>
+Wait 2–3 seconds for the Vite dev server to start (dev mode only). In production this won't happen.
+</details>
 
-**White screen on launch**
-→ Wait 2-3 seconds for Vite dev server to start in dev mode
+<details>
+<summary><b>App doesn't start on boot</b></summary>
+Check Task Manager → Startup tab → make sure DayStack is Enabled.
+</details>
 
-**App doesn't start on boot**
-→ Check Task Manager > Startup tab > Enable DayStack
+<details>
+<summary><b>Tasks disappeared</b></summary>
+Your data is always at <code>%APPDATA%\DayStack\tasks.json</code> — check if that file exists.
+</details>
 
-**Tasks disappeared**
-→ Check `%APPDATA%\DayStack\tasks.json` — your data is always there
+<details>
+<summary><b>Build fails with symlink error</b></summary>
+Run <code>.\setup.bat</code> as Administrator — it clears the electron-builder cache automatically.
+</details>
+
+---
+
+## 🤝 Contributing
+
+Pull requests are welcome! For major changes, open an issue first.
+
+1. Fork the repo
+2. Create your branch: `git checkout -b feature/cool-thing`
+3. Commit: `git commit -m "add cool thing"`
+4. Push: `git push origin feature/cool-thing`
+5. Open a Pull Request
+
+---
+
+<div align="center">
+
+Made with ♥ by [@TECHBLENDSTUDIOS](https://github.com/Atharva-Hegade)
+
+</div>
